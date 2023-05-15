@@ -1,5 +1,4 @@
 import { atom } from 'recoil';
-import dayjs from 'dayjs';
 
 import { Alarm } from '../types/alarm.types';
 

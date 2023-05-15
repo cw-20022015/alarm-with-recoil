@@ -1,5 +1,4 @@
 import { selector, DefaultValue } from 'recoil';
-import dayjs from 'dayjs';
 import { alarmState, alarmListState } from './AlarmAtom';
 import { Alarm } from 'types/alarm.types';
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import { alarmListByDateSelector } from 'store/AlarmSelector';
-import dayjs from 'dayjs';
 import { Alarm } from 'types/alarm.types';
 
 function AlarmCenter() {
@@ -14,7 +13,7 @@ function AlarmCenter() {
       <div>
         {alarmList.map((e: Alarm) => (
           <div key={e.id}>
-            <div>{dayjs(e.date).format('YYYY-MM-DD')}</div>
+            <div>{e.date}</div>
             <div>{e.content}</div>
           </div>
         ))}
