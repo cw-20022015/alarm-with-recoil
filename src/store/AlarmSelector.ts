@@ -30,22 +30,23 @@ export const alarmListWithTimelineSelector = selector<AlarmListWithTimelineType>
 
 /**
  * pushAlarmSelector
- * @description 알림 리스트에 추가
+ * @description 알림 리스트에 새로운 알림을 추가
  */
 export const pushAlarmSelector = selector<Alarm>({
   key: 'pushAlarmSelector',
   get: ({ get }) => {
     return get(alarmState);
   },
-  set: ({ set, get, reset }, newValue) => {
-    if (!newValue) {
-      return;
-    }
+  set: ({ set, get }, newValue) => {
     if (newValue instanceof DefaultValue) {
       return;
     }
     const currentList = get(alarmListState);
-    const newList = [...currentList, { id: newValue.id, content: newValue.content, date: newValue.date }];
+    const limitListCount = 20;
+    const limitCountList = currentList.length >= limitListCount ? currentList.slice(0, currentList.length - 1) : currentList;
+
+    const newList = [...limitCountList, { id: newValue.id, content: newValue.content, date: newValue.date }].sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+
     set(alarmListState, newList);
   },
 });
