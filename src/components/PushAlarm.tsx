@@ -1,38 +1,42 @@
 import React, { useState } from 'react';
 import { useRecoilState } from 'recoil';
-import { v4 as uuid } from 'uuid';
 import styled from 'styled-components';
+import { v4 as uuid } from 'uuid';
 import { pushAlarmSelector } from 'store/AlarmSelector';
 
 function PushAlarm() {
   const [date, setDate] = useState('');
-  const [pushAlarm, setPushAlarm] = useRecoilState(pushAlarmSelector);
-  //   TODO : push 누르면 알림목록에 추가
-  //   TODO : push 눌렀을 때 20개 이상되면 자동으로 오래된 애 삭제 후 추가
+  const [_, setPushAlarm] = useRecoilState(pushAlarmSelector);
+
   const handleSetDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDate(e.target.value);
   };
 
   const handlePushAlarm = () => {
-    setPushAlarm({ id: uuid(), content: 'testtest', date: date });
+    setPushAlarm({ id: uuid(), content: '내용 예시 내용 예시 내용 예시', date: date });
   };
 
   return (
-    <PushAlarmWrapper>
-      <input type="date" value={date} onChange={handleSetDate} />
+    <StyledPushAlarm>
+      <StyledDateInput type="date" value={date} onChange={handleSetDate} />
       <button
         onClick={() => {
           handlePushAlarm();
         }}>
         알림버튼
       </button>
-    </PushAlarmWrapper>
+    </StyledPushAlarm>
   );
 }
 
-const PushAlarmWrapper = styled.div`
-  display: flex;
+const StyledPushAlarm = styled.div`
   height: 3rem;
 `;
 
+const StyledDateInput = styled.input`
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 2rem;
+`;
 export default PushAlarm;

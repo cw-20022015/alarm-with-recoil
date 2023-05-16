@@ -1,25 +1,55 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
-import { alarmListByDateSelector } from 'store/AlarmSelector';
-import { Alarm } from 'types/alarm.types';
+import styled from 'styled-components';
+import { alarmListWithTimelineSelector } from 'store/AlarmSelector';
 
 function AlarmCenter() {
-  //   TODO : 알림센터 팝업 누르면 알림 리스트 뿌려주기 (selector 에서 날짜순으로 정렬하여 가져온다)
-  const alarmList = useRecoilValue(alarmListByDateSelector);
+  const alarmList = useRecoilValue(alarmListWithTimelineSelector);
 
   return (
-    <div className="DashBoard">
-      <div>푸쉬 알림창</div>
-      <div>
-        {alarmList.map((e: Alarm) => (
-          <div key={e.id}>
-            <div>{e.date}</div>
-            <div>{e.content}</div>
-          </div>
-        ))}
-      </div>
-    </div>
+    <StyledAlarmCenter>
+      <StyledAlarmCenterTitle>
+        <header>알림센터</header>
+      </StyledAlarmCenterTitle>
+
+      {Object.keys(alarmList).map((date, index) => (
+        <div key={date + index}>
+          <AlarmTimeLine>{date}</AlarmTimeLine>
+          {alarmList[date].map((e: any, index) => (
+            <p key={e.id}>{e.content}</p>
+          ))}
+        </div>
+      ))}
+    </StyledAlarmCenter>
   );
 }
+
+const StyledAlarmCenter = styled.div`
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border: 1px solid #dcdcdc;
+  border-radius: 0.5rem;
+  padding: 4rem 1rem;
+`;
+
+const StyledAlarmCenterTitle = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  background: #dcdcdc;
+
+  & header {
+    padding: 1rem;
+  }
+`;
+
+const AlarmTimeLine = styled.p`
+  font-size: 1rem;
+  font-weight: 600;
+`;
 
 export default AlarmCenter;
