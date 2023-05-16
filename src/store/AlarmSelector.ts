@@ -18,7 +18,7 @@ export const alarmListWithTimelineSelector = selector<Result[]>({
     const alarmList = get(alarmListState);
 
     const newData = sortByDate([...alarmList], 'asc').reduce<AlarmListWithTimelineType>((listWithTimeLine, curr) => {
-      const { date } = curr;
+      const date = curr.date.split(' ')[0];
       const newArr = { ...listWithTimeLine };
 
       if (!listWithTimeLine[date]) {

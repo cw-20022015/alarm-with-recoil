@@ -6,10 +6,15 @@ import { pushAlarmSelector } from 'store/AlarmSelector';
 
 function PushAlarm() {
   const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
   const setPushAlarm = useSetRecoilState(pushAlarmSelector);
 
   const handleSetDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDate(e.target.value);
+  };
+
+  const handleSetTime = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTime(e.target.value);
   };
 
   const handlePushAlarm = () => {
@@ -19,6 +24,7 @@ function PushAlarm() {
   return (
     <StyledPushAlarm>
       <StyledDateInput type="date" value={date} onChange={handleSetDate} />
+      <StyledDateInput type="time" value={time} onChange={handleSetTime} />
       <button type="button" onClick={handlePushAlarm}>
         알림버튼
       </button>
