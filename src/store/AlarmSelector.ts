@@ -1,5 +1,6 @@
 import { DefaultValue, selector } from 'recoil';
 import { Alarm } from 'types/alarm.types';
+import { sortByDate } from 'util/sortUtils';
 import { alarmListState, alarmState } from './AlarmAtom';
 
 interface AlarmListWithTimelineType {
@@ -14,22 +15,19 @@ export const alarmListWithTimelineSelector = selector<AlarmListWithTimelineType>
   get: ({ get }) => {
     const alarmList = get(alarmListState);
 
-    return [...alarmList]
-      .sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
-      .reduce<AlarmListWithTimelineType>((listWithTimeLine, curr) => {
-        const { date } = curr;
-        const newArr = { ...listWithTimeLine };
+    return sortByDate([...alarmList], 'asc').reduce<AlarmListWithTimelineType>((listWithTimeLine, curr) => {
+      const { date } = curr;
+      const newArr = { ...listWithTimeLine };
 
-        if (!listWithTimeLine[date]) {
-          newArr[date] = [];
-        }
+      if (!listWithTimeLine[date]) {
+        newArr[date] = [];
+      }
 
-        newArr[date] = newArr[date].concat(curr);
-        return newArr;
-      }, {});
+      newArr[date] = newArr[date].concat(curr);
+      return newArr;
+    }, {});
   },
 });
-
 /**
  * pushAlarmSelector
  * @description 알림 리스트에 새로운 알림을 추가
@@ -47,7 +45,7 @@ export const pushAlarmSelector = selector<Alarm>({
     const limitListCount = 20;
     const limitCountList = currentList.length >= limitListCount ? currentList.slice(0, currentList.length - 1) : currentList;
 
-    const newList = [...limitCountList, { id: newValue.id, content: newValue.content, date: newValue.date }].sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+    const newList = sortByDate([...limitCountList, { id: newValue.id, content: newValue.content, date: newValue.date }], 'asc');
 
     set(alarmListState, newList);
   },
