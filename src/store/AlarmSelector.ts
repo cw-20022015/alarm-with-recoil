@@ -1,6 +1,6 @@
 import { DefaultValue, selector } from 'recoil';
-import { alarmListState, alarmState } from './AlarmAtom';
 import { Alarm } from 'types/alarm.types';
+import { alarmListState, alarmState } from './AlarmAtom';
 
 interface AlarmListWithTimelineType {
   [date: string]: Alarm[];
@@ -17,13 +17,15 @@ export const alarmListWithTimelineSelector = selector<AlarmListWithTimelineType>
     return [...alarmList]
       .sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
       .reduce<AlarmListWithTimelineType>((listWithTimeLine, curr) => {
-        const date = curr.date;
+        const { date } = curr;
+        const newArr = { ...listWithTimeLine };
+
         if (!listWithTimeLine[date]) {
-          listWithTimeLine[date] = [];
+          newArr[date] = [];
         }
 
-        listWithTimeLine[date] = listWithTimeLine[date].concat(curr);
-        return listWithTimeLine;
+        newArr[date] = newArr[date].concat(curr);
+        return newArr;
       }, {});
   },
 });
