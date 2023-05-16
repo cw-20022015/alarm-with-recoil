@@ -1,18 +1,30 @@
-import { selector, DefaultValue } from 'recoil';
-import { alarmState, alarmListState } from './AlarmAtom';
+import { DefaultValue, selector } from 'recoil';
+import { alarmListState, alarmState } from './AlarmAtom';
 import { Alarm } from 'types/alarm.types';
 
+interface AlarmListWithTimelineType {
+  [date: string]: Alarm[];
+}
 /**
- * alarmListByDateSelector
- * @description 알림 리스트 조회
+ * alarmListWithTimelineSelector
+ * @description 알림 리스트를 최신순으로 정렬한 뒤 타임라인 형태로 가공
  */
-export const alarmListByDateSelector = selector<Alarm[]>({
-  key: 'alarmListByDateSelector',
+export const alarmListWithTimelineSelector = selector<AlarmListWithTimelineType>({
+  key: 'alarmListWithTimelineSelector',
   get: ({ get }) => {
     const alarmList = get(alarmListState);
-    const sortedList = [...alarmList].sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
-    console.log([...alarmList].sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf()));
-    return sortedList;
+
+    return [...alarmList]
+      .sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
+      .reduce<AlarmListWithTimelineType>((listWithTimeLine, curr) => {
+        const date = curr.date;
+        if (!listWithTimeLine[date]) {
+          listWithTimeLine[date] = [];
+        }
+
+        listWithTimeLine[date] = listWithTimeLine[date].concat(curr);
+        return listWithTimeLine;
+      }, {});
   },
 });
 

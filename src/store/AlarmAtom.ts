@@ -1,6 +1,5 @@
 import { atom } from 'recoil';
-
-import { Alarm } from '../types/alarm.types';
+import { Alarm } from 'types/alarm.types';
 
 export const alarmState = atom<Alarm>({
   key: 'alarmState',
