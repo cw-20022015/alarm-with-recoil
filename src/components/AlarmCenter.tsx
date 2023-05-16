@@ -16,7 +16,7 @@ function AlarmCenter() {
       {Object.keys(alarmList).map((date) => (
         <div key={uuid()}>
           <AlarmTimeLine>{date}</AlarmTimeLine>
-          {alarmList[date].map((e: any, index) => (
+          {alarmList[date].map((e) => (
             <p key={e.id}>{e.content}</p>
           ))}
         </div>

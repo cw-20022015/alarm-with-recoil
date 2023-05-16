@@ -3,11 +3,7 @@ import DashBoard from './page/DashBoard';
 import './App.css';
 
 function App() {
-  return (
-    <>
-      <DashBoard />
-    </>
-  );
+  return <DashBoard />;
 }
 
 export default App;
