@@ -18,7 +18,11 @@ function PushAlarm() {
   };
 
   const handlePushAlarm = () => {
-    setPushAlarm({ id: uuid(), content: '내용 예시 내용 예시 내용 예시', date });
+    if (!date || !time) {
+      alert('날짜와 시간은 필수값입니다.');
+      return;
+    }
+    setPushAlarm({ id: uuid(), content: '내용 예시 내용 예시 내용 예시', date: `${date} ${time}` });
   };
 
   return (
