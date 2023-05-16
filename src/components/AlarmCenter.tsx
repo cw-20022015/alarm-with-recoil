@@ -1,5 +1,6 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
+import { v4 as uuid } from 'uuid';
 import styled from 'styled-components';
 import { alarmListWithTimelineSelector } from 'store/AlarmSelector';
 
@@ -12,8 +13,8 @@ function AlarmCenter() {
         <header>알림센터</header>
       </StyledAlarmCenterTitle>
 
-      {Object.keys(alarmList).map((date, index) => (
-        <div key={date + index}>
+      {Object.keys(alarmList).map((date) => (
+        <div key={uuid()}>
           <AlarmTimeLine>{date}</AlarmTimeLine>
           {alarmList[date].map((e: any, index) => (
             <p key={e.id}>{e.content}</p>
