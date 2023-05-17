@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
-import { alarmListState, isAlarmCenterOpenState } from 'store/AlarmAtom';
+import { isAlarmCenterOpenState } from 'store/AlarmAtom';
 import PushAlarm from 'components/PushAlarm';
 import AlarmCenter from 'components/AlarmCenter';
 import AlarmPopupButton from 'components/AlarmPopupButton';

@@ -35,21 +35,31 @@ function PushAlarm() {
     <StyledPushAlarm>
       <StyledDateInput type="date" value={date} onChange={handleSetDate} />
       <StyledDateInput type="time" value={time} onChange={handleSetTime} />
-      <button type="button" onClick={handlePushAlarm}>
+      <StyledButton type="button" onClick={handlePushAlarm}>
         알림버튼
-      </button>
+      </StyledButton>
     </StyledPushAlarm>
   );
 }
 
 const StyledPushAlarm = styled.div`
-  height: 3rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  margin-bottom: 2rem;
 `;
 
 const StyledDateInput = styled.input`
   border-top: none;
   border-left: none;
   border-right: none;
-  border-bottom: 1px solid;
+  border-bottom: 1px solid #dcdcdc;
+  margin-right: 0.5rem;
 `;
+const StyledButton = styled.button`
+  border: none;
+  background: #dcdcdc;
+  cursor: pointer;
+`;
+
 export default PushAlarm;

@@ -8,7 +8,7 @@ function AlarmCenter() {
   const setIsAlarmCenterOpen = useSetRecoilState(isAlarmCenterOpenSelector);
 
   return (
-    <StyledAlarmButton>
+    <StyledAlarmCenter>
       <StyledAlarmCenterTitle>
         <header>알림센터</header>
         <button type="button" onClick={() => setIsAlarmCenterOpen(false)} />
@@ -33,10 +33,10 @@ function AlarmCenter() {
   );
 }
 
-const StyledAlarmButton = styled.div`
-  display: flex;
-  flex-direction: column;
+const StyledAlarmCenter = styled.div`
   position: relative;
+  width: 40%;
+  height: 100%;
   border: 1px solid #dcdcdc;
   border-radius: 0.5rem;
   padding: 4rem 1rem;
@@ -46,6 +46,9 @@ const StyledAlarmCenterTitle = styled.div`
   position: absolute;
   top: 0;
   left: 0;
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
   width: 100%;
   border-top-left-radius: 0.5rem;
   border-top-right-radius: 0.5rem;
@@ -53,6 +56,19 @@ const StyledAlarmCenterTitle = styled.div`
 
   & header {
     padding: 1rem;
+  }
+
+  & button {
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+
+  & button:after {
+    display: inline-block;
+    content: '\\00d7';
+    font-size: 15pt;
+    padding-right: 1rem;
   }
 `;
 

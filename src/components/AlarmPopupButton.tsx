@@ -13,26 +13,34 @@ function AlarmPopupButton() {
   };
 
   return (
-    <StyledAlarmButton type="button" onClick={handleClickAlarmIcon}>
-      <StyledAlarmIcon src="images/bell.png" />
-      {isAlarmNotice && <StyledAlarmNoticeCircle />}
-    </StyledAlarmButton>
+    <StyledAlarmPopupButtonArea>
+      <StyledAlarmPopupButton type="button" onClick={handleClickAlarmIcon}>
+        <StyledAlarmIcon src="images/bell.png" />
+        {isAlarmNotice && <StyledAlarmNoticeCircle />}
+      </StyledAlarmPopupButton>
+    </StyledAlarmPopupButtonArea>
   );
 }
+const StyledAlarmPopupButtonArea = styled.div`
+  position: absolute;
+  top: 0;
+  right: 2rem;
+`;
 
-const StyledAlarmButton = styled.button`
+const StyledAlarmPopupButton = styled.button`
   position: relative;
-  height: 100%;
   cursor: pointer;
+  border: none;
+  background: none;
 `;
 
 const StyledAlarmNoticeCircle = styled.span`
   position: absolute;
-  top: 0.6rem;
-  right: 0.2rem;
-  width: 0.8rem;
-  height: 0.8rem;
+  bottom: 0.5rem;
+  right: 0.5rem;
   border-radius: 50%;
+  width: 1rem;
+  height: 1rem;
   background: red;
 `;
 
