@@ -13,11 +13,11 @@ function AlarmCenter() {
       </StyledAlarmCenterTitle>
 
       {alarmList.map((data) => {
-        const [date, alarmList] = data;
+        const [date, alarms] = data;
         return (
           <div key={date}>
             <AlarmTimeLine>{date}</AlarmTimeLine>
-            {alarmList.map((e) => (
+            {alarms.map((e) => (
               <p key={e.id}>{e.content}</p>
             ))}
           </div>

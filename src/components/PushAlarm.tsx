@@ -34,6 +34,6 @@ const StyledDateInput = styled.input`
   border-top: none;
   border-left: none;
   border-right: none;
-  border-bottom: 2rem;
+  border-bottom: 1px solid;
 `;
 export default PushAlarm;
