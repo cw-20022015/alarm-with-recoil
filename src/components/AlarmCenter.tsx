@@ -13,11 +13,11 @@ function AlarmCenter() {
         <header>알림센터</header>
       </StyledAlarmCenterTitle>
 
-      {Object.keys(alarmList).map((date) => (
+      {alarmList.map((data) => (
         <div key={uuid()}>
-          <AlarmTimeLine>{date}</AlarmTimeLine>
-          {alarmList[date].map((e) => (
-            <p key={e.id}>{e.content}</p>
+          <AlarmTimeLine>{data[0]}</AlarmTimeLine>
+          {data[1].map((e) => (
+            <p key={e?.id}>{e?.content}</p>
           ))}
         </div>
       ))}

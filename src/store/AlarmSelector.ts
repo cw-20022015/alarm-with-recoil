@@ -6,16 +6,18 @@ import { alarmListState, alarmState } from './AlarmAtom';
 interface AlarmListWithTimelineType {
   [date: string]: Alarm[];
 }
+type Group = string;
+type Result = [Group, Alarm[]];
 /**
  * alarmListWithTimelineSelector
  * @description 알림 리스트를 최신순으로 정렬한 뒤 타임라인 형태로 가공
  */
-export const alarmListWithTimelineSelector = selector<AlarmListWithTimelineType>({
+export const alarmListWithTimelineSelector = selector<Result[]>({
   key: 'alarmListWithTimelineSelector',
   get: ({ get }) => {
     const alarmList = get(alarmListState);
 
-    return sortByDate([...alarmList], 'asc').reduce<AlarmListWithTimelineType>((listWithTimeLine, curr) => {
+    const newData = sortByDate([...alarmList], 'asc').reduce<AlarmListWithTimelineType>((listWithTimeLine, curr) => {
       const { date } = curr;
       const newArr = { ...listWithTimeLine };
 
@@ -26,6 +28,8 @@ export const alarmListWithTimelineSelector = selector<AlarmListWithTimelineType>
       newArr[date] = newArr[date].concat(curr);
       return newArr;
     }, {});
+
+    return Object.entries(newData);
   },
 });
 /**
