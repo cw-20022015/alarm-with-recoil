@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
-import { pushAlarmSelector } from 'store/AlarmSelector';
+import { alarmNoticeSelector, pushAlarmSelector } from 'store/AlarmSelector';
 
 function PushAlarm() {
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const setPushAlarm = useSetRecoilState(pushAlarmSelector);
+  const setIsAlarmNotice = useSetRecoilState(alarmNoticeSelector);
 
   const handleSetDate = (e: React.ChangeEvent<HTMLInputElement>) => {
     setDate(e.target.value);
@@ -18,11 +19,13 @@ function PushAlarm() {
   };
 
   const handlePushAlarm = () => {
-    if (!date || !time) {
-      alert('날짜와 시간은 필수값입니다.');
-      return;
-    }
-    setPushAlarm({ id: uuid(), content: '내용 예시 내용 예시 내용 예시', date: `${date} ${time}` });
+      if (!date || !time) {
+          alert('날짜와 시간은 필수값입니다.');
+          return;
+      }
+
+    setPushAlarm({ id: uuid(), content: '내용 예시 내용 예시 내용 예시', date });
+    setIsAlarmNotice(true);
   };
 
   return (

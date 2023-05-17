@@ -1,15 +1,19 @@
 import React from 'react';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
-import { alarmListWithTimelineSelector } from 'store/AlarmSelector';
+import { alarmListWithTimelineSelector, isAlarmCenterOpenSelector } from 'store/AlarmSelector';
 
 function AlarmCenter() {
   const alarmList = useRecoilValue(alarmListWithTimelineSelector);
+  const setIsAlarmCenterOpen = useSetRecoilState(isAlarmCenterOpenSelector);
 
   return (
-    <StyledAlarmCenter>
+    <StyledAlarmButton>
       <StyledAlarmCenterTitle>
         <header>알림센터</header>
+        <button type="button" onClick={() => setIsAlarmCenterOpen(false)}>
+          닫기
+        </button>
       </StyledAlarmCenterTitle>
 
       {alarmList.map((data) => {
@@ -23,11 +27,11 @@ function AlarmCenter() {
           </div>
         );
       })}
-    </StyledAlarmCenter>
+    </StyledAlarmButton>
   );
 }
 
-const StyledAlarmCenter = styled.div`
+const StyledAlarmButton = styled.div`
   display: flex;
   flex-direction: column;
   position: relative;

@@ -1,6 +1,6 @@
 import { DefaultValue, selector } from 'recoil';
 import { sortByDate } from 'util/sortUtils';
-import { alarmListState } from './AlarmAtom';
+import { alarmListState, alarmState, alarmNoticeState, isAlarmCenterOpenState } from './AlarmAtom';
 import { Alarm } from '../types/alarm.types';
 
 interface AlarmListWithTimelineType {
@@ -52,5 +52,35 @@ export const pushAlarmSelector = selector<Alarm>({
     const newList = sortByDate([...limitCountList, { id: newValue.id, content: newValue.content, date: newValue.date }], 'asc');
 
     set(alarmListState, newList);
+  },
+});
+
+/**
+ * pushAlarmSelector
+ * @description 사용자가 확인 할 알람이 있는지
+ */
+export const alarmNoticeSelector = selector({
+  key: 'alarmNoticeSelector',
+  get: ({ get }) => {
+    return get(alarmNoticeState);
+  },
+  set: ({ set }, newValue) => {
+    if (newValue instanceof DefaultValue) {
+      return;
+    }
+    set(alarmNoticeState, newValue);
+  },
+});
+
+export const isAlarmCenterOpenSelector = selector({
+  key: 'isAlarmCenterOpenSelector',
+  get: ({ get }) => {
+    return get(isAlarmCenterOpenState);
+  },
+  set: ({ set }, newValue) => {
+    if (newValue instanceof DefaultValue) {
+      return;
+    }
+    set(isAlarmCenterOpenState, newValue);
   },
 });
