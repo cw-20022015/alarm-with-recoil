@@ -13,14 +13,17 @@ function AlarmCenter() {
         <header>알림센터</header>
       </StyledAlarmCenterTitle>
 
-      {alarmList.map((data) => (
-        <div key={uuid()}>
-          <AlarmTimeLine>{data[0]}</AlarmTimeLine>
-          {data[1].map((e) => (
-            <p key={e?.id}>{e?.content}</p>
-          ))}
-        </div>
-      ))}
+      {alarmList.map((data) => {
+        const [date, alarmList] = data;
+        return (
+          <div key={uuid()}>
+            <AlarmTimeLine>{date}</AlarmTimeLine>
+            {alarmList.map((e) => (
+              <p key={e.id}>{e.content}</p>
+            ))}
+          </div>
+        );
+      })}
     </StyledAlarmCenter>
   );
 }
