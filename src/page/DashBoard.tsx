@@ -8,8 +8,6 @@ import AlarmPopupButton from 'components/AlarmPopupButton';
 
 function DashBoard() {
   const isAlarmCenterOpen = useRecoilValue(isAlarmCenterOpenState);
-  const isAlarmList = useRecoilValue(alarmListState).length;
-  console.log(isAlarmCenterOpen);
 
   return (
     <StyledDashBoard>
@@ -19,7 +17,7 @@ function DashBoard() {
         <PushAlarm />
       </StyledPushAlarmSection>
 
-      {isAlarmList !== 0 && isAlarmCenterOpen && <AlarmCenter />}
+      {isAlarmCenterOpen && <AlarmCenter />}
 
       <AlarmPopupButton />
     </StyledDashBoard>

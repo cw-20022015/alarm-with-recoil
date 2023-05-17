@@ -11,22 +11,24 @@ function AlarmCenter() {
     <StyledAlarmButton>
       <StyledAlarmCenterTitle>
         <header>알림센터</header>
-        <button type="button" onClick={() => setIsAlarmCenterOpen(false)}>
-          닫기
-        </button>
+        <button type="button" onClick={() => setIsAlarmCenterOpen(false)} />
       </StyledAlarmCenterTitle>
 
-      {alarmList.map((data) => {
-        const [date, alarms] = data;
-        return (
-          <div key={date}>
-            <AlarmTimeLine>{date}</AlarmTimeLine>
-            {alarms.map((e) => (
-              <p key={e.id}>{e.content}</p>
-            ))}
-          </div>
-        );
-      })}
+      {alarmList.length ? (
+        alarmList.map((data) => {
+          const [date, alarms] = data;
+          return (
+            <div key={date}>
+              <AlarmTimeLine>{date}</AlarmTimeLine>
+              {alarms.map((e) => (
+                <p key={e.id}>{e.content}</p>
+              ))}
+            </div>
+          );
+        })
+      ) : (
+        <p>알림 없음</p>
+      )}
     </StyledAlarmButton>
   );
 }
