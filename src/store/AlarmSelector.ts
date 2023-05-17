@@ -1,7 +1,7 @@
 import { DefaultValue, selector } from 'recoil';
-import { Alarm } from 'types/alarm.types';
 import { sortByDate } from 'util/sortUtils';
-import { alarmListState, alarmState } from './AlarmAtom';
+import { alarmListState } from './AlarmAtom';
+import { Alarm } from '../types/alarm.types';
 
 interface AlarmListWithTimelineType {
   [date: string]: Alarm[];
@@ -38,8 +38,8 @@ export const alarmListWithTimelineSelector = selector<Result[]>({
  */
 export const pushAlarmSelector = selector<Alarm>({
   key: 'pushAlarmSelector',
-  get: ({ get }) => {
-    return get(alarmState);
+  get: () => {
+    return { id: '', content: '', date: '' };
   },
   set: ({ set, get }, newValue) => {
     if (newValue instanceof DefaultValue) {
