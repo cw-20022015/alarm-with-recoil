@@ -1,24 +1,26 @@
 import { DefaultValue, selector } from 'recoil';
 import { sortByDate } from 'util/sortUtils';
-import { alarmListState, alarmState, alarmNoticeState, isAlarmCenterOpenState } from './AlarmAtom';
+import dayjs from 'dayjs';
+import { alarmListState, alarmNoticeState, isAlarmCenterOpenState } from './AlarmAtom';
 import { Alarm } from '../types/alarm.types';
 
 interface AlarmListWithTimelineType {
   [date: string]: Alarm[];
 }
-type Group = string;
-type Result = [Group, Alarm[]];
 /**
  * alarmListWithTimelineSelector
- * @description 알림 리스트를 최신순으로 정렬한 뒤 타임라인 형태로 가공
+ * @description 알림 리스트를 최신순으로 정렬하여 타임라인으로 가공
+ * @return {[date:string] : T[]} 날짜 key : 해당 날짜의 데이터
  */
-export const alarmListWithTimelineSelector = selector<Result[]>({
+export const alarmListWithTimelineSelector = selector<AlarmListWithTimelineType>({
   key: 'alarmListWithTimelineSelector',
   get: ({ get }) => {
     const alarmList = get(alarmListState);
 
     const newData = sortByDate([...alarmList], 'asc').reduce<AlarmListWithTimelineType>((listWithTimeLine, curr) => {
-      const date = curr.date.split(' ')[0];
+      const isValidDate = dayjs(curr.date).isValid();
+      const date = isValidDate ? dayjs(curr.date).format('YYYY.MM.DD') : curr.date;
+
       const newArr = { ...listWithTimeLine };
 
       if (!listWithTimeLine[date]) {
@@ -29,7 +31,7 @@ export const alarmListWithTimelineSelector = selector<Result[]>({
       return newArr;
     }, {});
 
-    return Object.entries(newData);
+    return newData;
   },
 });
 /**
@@ -57,7 +59,7 @@ export const pushAlarmSelector = selector<Alarm>({
 
 /**
  * pushAlarmSelector
- * @description 사용자가 확인 할 알람이 있는지
+ * @description 확인하지 않은 알림 개수 세팅
  */
 export const alarmNoticeSelector = selector({
   key: 'alarmNoticeSelector',

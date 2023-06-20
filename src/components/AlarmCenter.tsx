@@ -14,22 +14,19 @@ function AlarmCenter() {
         <button type="button" onClick={() => setIsAlarmCenterOpen(false)} />
       </StyledAlarmCenterTitle>
 
-      {alarmList.length ? (
-        alarmList.map((data) => {
-          const [date, alarms] = data;
-          return (
-            <div key={date}>
-              <AlarmTimeLine>{date}</AlarmTimeLine>
-              {alarms.map((e) => (
-                <p key={e.id}>{e.content}</p>
-              ))}
-            </div>
-          );
-        })
+      {Object.keys(alarmList).length ? (
+        Object.keys(alarmList).map((date) => (
+          <div key={date}>
+            <AlarmTimeLine>{date}</AlarmTimeLine>
+            {alarmList[date].map(({ content }) => (
+              <p key={content}>{content}</p>
+            ))}
+          </div>
+        ))
       ) : (
         <p>알림 없음</p>
       )}
-    </StyledAlarmButton>
+    </StyledAlarmCenter>
   );
 }
 
