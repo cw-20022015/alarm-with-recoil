@@ -3,11 +3,9 @@ import { useSetRecoilState } from 'recoil';
 import { v4 as uuid } from 'uuid';
 import styled from 'styled-components';
 import { alarmNoticeSelector, pushAlarmSelector } from 'store/AlarmSelector';
-import { useTranslation } from 'react-i18next';
+import useTranslate from 'hooks/useTranslate';
 
 function PushAlarm() {
-  const { t } = useTranslation();
-
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const setPushAlarm = useSetRecoilState(pushAlarmSelector);
@@ -40,7 +38,7 @@ function PushAlarm() {
       <StyledDateInput type="date" value={date} onChange={handleSetDate} />
       <StyledDateInput type="time" value={time} onChange={handleSetTime} />
       <StyledButton type="button" onClick={handlePushAlarm}>
-        {t('alarmButton')}
+        {useTranslate('alarmButton')}
       </StyledButton>
     </StyledPushAlarm>
   );
