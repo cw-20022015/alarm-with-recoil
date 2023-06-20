@@ -1,6 +1,6 @@
 import { DefaultValue, selector } from 'recoil';
-import { sortByDate } from 'util/sortUtils';
 import dayjs from 'dayjs';
+import { sortByDate } from 'util/sortUtils';
 import { alarmListState, alarmNoticeState, isAlarmCenterOpenState } from './AlarmAtom';
 import { Alarm } from '../types/alarm.types';
 

@@ -3,7 +3,7 @@ import { useRecoilState, useSetRecoilState } from 'recoil';
 import styled from 'styled-components';
 import { alarmNoticeSelector, isAlarmCenterOpenSelector } from 'store/AlarmSelector';
 
-function AlarmPopupButton() {
+function AlarmCenterButton() {
   const [isAlarmNotice, setIsAlarmNotice] = useRecoilState(alarmNoticeSelector);
   const setIsAlarmCenterOpen = useSetRecoilState(isAlarmCenterOpenSelector);
 
@@ -50,4 +50,4 @@ const StyledAlarmIcon = styled.img`
   padding: 1rem;
 `;
 
-export default AlarmPopupButton;
+export default AlarmCenterButton;

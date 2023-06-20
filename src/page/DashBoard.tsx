@@ -3,8 +3,8 @@ import { useRecoilValue } from 'recoil';
 import styled from 'styled-components';
 import { isAlarmCenterOpenState } from 'store/AlarmAtom';
 import PushAlarm from 'components/PushAlarm';
-import AlarmCenter from 'components/AlarmCenter';
-import AlarmPopupButton from 'components/AlarmPopupButton';
+import AlarmCenter from 'components/AlarmCenter/AlarmCenter';
+import AlarmCenterButton from 'components/AlarmCenter/AlarmCenterButton';
 
 function DashBoard() {
   const isAlarmCenterOpen = useRecoilValue(isAlarmCenterOpenState);
@@ -17,9 +17,9 @@ function DashBoard() {
         <PushAlarm />
       </StyledPushAlarmSection>
 
-      {isAlarmCenterOpen && <AlarmCenter />}
+      <AlarmCenterButton />
 
-      <AlarmPopupButton />
+      {isAlarmCenterOpen && <AlarmCenter />}
     </StyledDashBoard>
   );
 }

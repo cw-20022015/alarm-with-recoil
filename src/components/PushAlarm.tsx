@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
-import styled from 'styled-components';
 import { v4 as uuid } from 'uuid';
+import styled from 'styled-components';
 import { alarmNoticeSelector, pushAlarmSelector } from 'store/AlarmSelector';
 
 function PushAlarm() {
@@ -26,7 +26,7 @@ function PushAlarm() {
     setPushAlarm({
       id: uuid(),
       content: '내용 예시 내용 예시 내용 예시',
-      date,
+      date: `${date}T${time}`,
     });
     setIsAlarmNotice(true);
   };

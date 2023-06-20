@@ -1,5 +1,6 @@
 import React from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { v4 as uuid } from 'uuid';
 import styled from 'styled-components';
 import { alarmListWithTimelineSelector, isAlarmCenterOpenSelector } from 'store/AlarmSelector';
 
@@ -14,23 +15,25 @@ function AlarmCenter() {
         <button type="button" onClick={() => setIsAlarmCenterOpen(false)} />
       </StyledAlarmCenterTitle>
 
-      {Object.keys(alarmList).length ? (
-        Object.keys(alarmList).map((date) => (
-          <div key={date}>
-            <AlarmTimeLine>{date}</AlarmTimeLine>
-            {alarmList[date].map(({ content }) => (
-              <p key={content}>{content}</p>
-            ))}
-          </div>
-        ))
-      ) : (
-        <p>알림 없음</p>
-      )}
+      <StyledAlarmContent>
+        {Object.keys(alarmList).length ? (
+          Object.keys(alarmList).map((date) => (
+            <div key={date}>
+              <AlarmTimeLine>{date}</AlarmTimeLine>
+              {alarmList[date].map(({ content }) => (
+                <p key={uuid()}>{content}</p>
+              ))}
+            </div>
+          ))
+        ) : (
+          <p>알림 없음</p>
+        )}
+      </StyledAlarmContent>
     </StyledAlarmCenter>
   );
 }
 
-const StyledAlarmCenter = styled.div`
+const StyledAlarmCenter = styled.section`
   position: relative;
   width: 40%;
   height: 100%;
@@ -38,6 +41,8 @@ const StyledAlarmCenter = styled.div`
   border-radius: 0.5rem;
   padding: 4rem 1rem;
 `;
+
+const StyledAlarmContent = styled.div``;
 
 const StyledAlarmCenterTitle = styled.div`
   position: absolute;
