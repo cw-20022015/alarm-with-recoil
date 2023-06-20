@@ -1,5 +1,6 @@
 import { atom } from 'recoil';
 import { Alarm } from 'types/alarm.types';
+import { mockList } from './mock';
 
 export const isAlarmCenterOpenState = atom({
   key: 'isAlarmCenterOpenState',
@@ -8,7 +9,7 @@ export const isAlarmCenterOpenState = atom({
 
 export const alarmNoticeState = atom({
   key: 'alarmNoticeState',
-  default: false,
+  default: true,
 });
 
 export const alarmState = atom<Alarm>({
@@ -18,5 +19,5 @@ export const alarmState = atom<Alarm>({
 
 export const alarmListState = atom<Alarm[]>({
   key: 'alarmListState',
-  default: [],
+  default: mockList,
 });

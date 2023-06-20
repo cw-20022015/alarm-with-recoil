@@ -1,17 +1,19 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { v4 as uuid } from 'uuid';
 import styled from 'styled-components';
 import { alarmListWithTimelineSelector, isAlarmCenterOpenSelector } from 'store/AlarmSelector';
 
 function AlarmCenter() {
+  const { t } = useTranslation();
   const alarmList = useRecoilValue(alarmListWithTimelineSelector);
   const setIsAlarmCenterOpen = useSetRecoilState(isAlarmCenterOpenSelector);
 
   return (
     <StyledAlarmCenter>
       <StyledAlarmCenterTitle>
-        <header>알림센터</header>
+        <header>{t('alarmCenter')}</header>
         <button type="button" onClick={() => setIsAlarmCenterOpen(false)} />
       </StyledAlarmCenterTitle>
 
