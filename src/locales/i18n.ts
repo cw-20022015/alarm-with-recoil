@@ -11,10 +11,12 @@ const resources = {
   },
 };
 
+const { language } = navigator;
+
 i18n.use(initReactI18next).init({
   resources,
-  lng: 'en',
-  fallbackLng: 'en',
+  lng: language || 'en',
+  fallbackLng: ['kr', 'en'],
   interpolation: { escapeValue: false },
   detection: { order: ['path', 'navigator'] },
   react: {
