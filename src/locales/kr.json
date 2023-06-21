@@ -1,0 +1,7 @@
+{
+  "content": "테스트 입니다",
+  "alarmCenter" : "알림센터",
+  "alarmButton" : "알림 등록 버튼",
+  "isEmpty" : "알림 없음",
+  "requiredValueAlert" : "날짜와 시간은 필수값입니다."
+}
