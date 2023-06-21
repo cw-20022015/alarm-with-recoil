@@ -1,5 +1,5 @@
 export interface Alarm {
-  id: string;
+  id: string | number;
   date: string;
   content: string;
 }

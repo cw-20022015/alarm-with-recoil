@@ -1,6 +1,8 @@
 import React from 'react';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { FormattedMessage } from 'react-intl';
 import { v4 as uuid } from 'uuid';
+import { formatDateUtil, formatTimeUtil } from 'util/intlUtils';
 import styled from 'styled-components';
 import { alarmListWithTimelineSelector, isAlarmCenterOpenSelector } from 'store/AlarmSelector';
 
@@ -11,7 +13,9 @@ function AlarmCenter() {
   return (
     <StyledAlarmCenter>
       <StyledAlarmCenterTitle>
-        <header>알림센터</header>
+        <header>
+          <FormattedMessage id="alarmCenter" />
+        </header>
         <button type="button" onClick={() => setIsAlarmCenterOpen(false)} />
       </StyledAlarmCenterTitle>
 
@@ -19,14 +23,19 @@ function AlarmCenter() {
         {Object.keys(alarmList).length ? (
           Object.keys(alarmList).map((date) => (
             <div key={date}>
-              <AlarmTimeLine>{date}</AlarmTimeLine>
+              <AlarmTimeLine>{formatDateUtil(date)}</AlarmTimeLine>
               {alarmList[date].map(({ content }) => (
-                <p key={uuid()}>{content}</p>
+                <>
+                  <span>{formatTimeUtil(Date.parse(date))}</span>
+                  <p key={uuid()}>{content}</p>
+                </>
               ))}
             </div>
           ))
         ) : (
-          <p>알림 없음</p>
+          <p>
+            <FormattedMessage id="isEmpty" />
+          </p>
         )}
       </StyledAlarmContent>
     </StyledAlarmCenter>

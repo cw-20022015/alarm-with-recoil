@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { useSetRecoilState } from 'recoil';
+import { FormattedMessage } from 'react-intl';
 import { v4 as uuid } from 'uuid';
 import styled from 'styled-components';
+import { formatMessageUtil } from 'util/intlUtils';
 import { alarmNoticeSelector, pushAlarmSelector } from 'store/AlarmSelector';
 
 function PushAlarm() {
+  const requiredValueAlert = formatMessageUtil('requiredValueAlert');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
   const setPushAlarm = useSetRecoilState(pushAlarmSelector);
@@ -20,7 +23,7 @@ function PushAlarm() {
 
   const handlePushAlarm = () => {
     if (!date || !time) {
-      alert('날짜와 시간은 필수값입니다.');
+      alert(requiredValueAlert);
       return;
     }
     setPushAlarm({
@@ -36,7 +39,7 @@ function PushAlarm() {
       <StyledDateInput type="date" value={date} onChange={handleSetDate} />
       <StyledDateInput type="time" value={time} onChange={handleSetTime} />
       <StyledButton type="button" onClick={handlePushAlarm}>
-        알림버튼
+        <FormattedMessage id="alarmButton" />
       </StyledButton>
     </StyledPushAlarm>
   );
